@@ -1,5 +1,6 @@
 /target/
-/src/
-/.settings/
-/.classpath/
-/.proyect/
+/src/main
+/src/test
+.settings
+.classpath
+.proyect
