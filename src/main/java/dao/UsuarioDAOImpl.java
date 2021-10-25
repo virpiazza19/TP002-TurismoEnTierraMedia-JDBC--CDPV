@@ -6,20 +6,25 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
-
 import conexion.ConexionProvider;
 import tierraMedia.Usuario;
+import tierraMedia.TipoAtraccion;
 
 public class UsuarioDAOImpl implements UsuarioDAO {
 
 	public int insert(Usuario usuario) {
+		
 		try {
-			String sql = "INSERT INTO USERS (USERNAME, PASSWORD) VALUES (?, ?)";
+			String sql = "INSERT INTO USUARIO (ID, NOMBRE, PRESUPUESTO, TIEMPO_DISPONIBLE, ATRACCION_PREFERIDA)"
+					+ "VALUES (?, ?, ?, ?, ?)";
 			Connection conn = ConexionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
-			// statement.setString(1, usuario.getUsername());
-			// statement.setString(2, usuario.getPassword());
+			statement.setInt(1, usuario.getId());
+			statement.setString(2, usuario.getNombre());
+			statement.setInt(3, usuario.getPresupuesto());
+			statement.setDouble(4, usuario.getTiempoDisponible());
+			statement.setString(5, String.valueOf(usuario.getAtraccionPreferida()));
 			int rows = statement.executeUpdate();
 
 			return rows;
@@ -30,12 +35,12 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 	public int update(Usuario usuario) {
 		try {
-			String sql = "UPDATE USERS SET PASSWORD = ? WHERE USERNAME = ?";
+			String sql = "UPDATE USUARIO SET SET PRESUPUESTO = ?, TIEMPO_DISPONIBLE = ?";
 			Connection conn = ConexionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
-			// statement.setString(1, usuario.getPassword());
-			// statement.setString(2, usuario.getUsername());
+			statement.setInt(1, usuario.getPresupuesto());
+			statement.setDouble(2, usuario.getTiempoDisponible());
 			int rows = statement.executeUpdate();
 
 			return rows;
@@ -46,11 +51,11 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 	public int delete(Usuario usuario) {
 		try {
-			String sql = "DELETE FROM USERS WHERE USERNAME = ?";
+			String sql = "DELETE FROM USUARIO WHERE nombre = ?";
 			Connection conn = ConexionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
-		//	statement.setString(1, usuario.getUsername());
+			statement.setString(1, usuario.getNombre());
 			int rows = statement.executeUpdate();
 
 			return rows;
@@ -59,18 +64,18 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		}
 	}
 
-	public Usuario findByNombre(String nombre) {
+	public Usuario findByUsername(String nombre) {
 		try {
-			String sql = "SELECT * FROM USERS WHERE USERNAME = ?";
+			String sql = "SELECT * FROM USUARIO WHERE NOMBRE = ?";
 			Connection conn = ConexionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
-		//	statement.setString(1, nombre);
+			statement.setString(1, nombre);
 			ResultSet resultados = statement.executeQuery();
 
 			Usuario usuario = null;
 
 			if (resultados.next()) {
-	//			usuario = toUsuario(resultados);
+				usuario = toUsuario(resultados);
 			}
 
 			return usuario;
@@ -81,7 +86,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 	public int countAll() {
 		try {
-			String sql = "SELECT COUNT(1) AS TOTAL FROM USERS";
+			String sql = "SELECT COUNT(1) AS TOTAL FROM USUARIO";
 			Connection conn = ConexionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet resultados = statement.executeQuery();
@@ -97,14 +102,14 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 	public List<Usuario> findAll() {
 		try {
-			String sql = "SELECT * FROM USERS";
+			String sql = "SELECT * FROM USUARIO";
 			Connection conn = ConexionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet resultados = statement.executeQuery();
 
 			List<Usuario> usuarios = new LinkedList<Usuario>();
 			while (resultados.next()) {
-		//		usuarios.add(toUsuario(resultados));
+				usuarios.add(toUsuario(resultados));
 			}
 
 			return usuarios;
@@ -113,8 +118,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		}
 	}
 
-//	private Usuario toUsuario(ResultSet resultados) throws SQLException {
-//		return new Usuario(resultados.getString(1), resultados.getString(2));
-//	}
-
+	private Usuario toUsuario(ResultSet results) throws SQLException {
+		return new Usuario(results.getInt(1), results.getString(2),results.getInt(3), 
+				results.getDouble(4), TipoAtraccion.valueOf(results.getString(5)));
+	}
 }
