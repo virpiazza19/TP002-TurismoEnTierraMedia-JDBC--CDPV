@@ -70,7 +70,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			Usuario usuario = null;
 
 			if (resultados.next()) {
-				usuario = toUsuario(resultados);
+	//			usuario = toUsuario(resultados);
 			}
 
 			return usuario;
