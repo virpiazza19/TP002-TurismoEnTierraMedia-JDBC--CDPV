@@ -35,7 +35,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 	public int update(Usuario usuario) {
 		try {
-			String sql = "UPDATE USUARIO SET PRESUPUESTO = ?, TIEMPO_DISPONIBLE = ?";
+			String sql = "UPDATE USUARIO SET PRESUPUESTO = ?, TIEMPO_DISPONIBLE = ? WHERE NOMBRE = ?";
 			Connection conn = ConexionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
