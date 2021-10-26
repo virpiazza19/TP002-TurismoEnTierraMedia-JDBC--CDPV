@@ -66,7 +66,10 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 	public Usuario findByUsername(String nombre) {
 		try {
-			String sql = "SELECT * FROM USUARIO WHERE NOMBRE = ?";
+			String sql = "SELECT USUARIO.id, USUARIO.nombre, USUARIO.presupuesto, USUARIO.tiempo_disponible, Tipo_atraccion.nombre AS 'atraccion_preferida'\r\n"
+					+ "FROM USUARIO "
+					+ "INNER JOIN Tipo_atraccion ON Tipo_atraccion.id = Usuario.atraccion_preferida\r\n"
+					+ "WHERE NOMBRE = ?";
 			Connection conn = ConexionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, nombre);
@@ -102,7 +105,9 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 	public List<Usuario> findAll() {
 		try {
-			String sql = "SELECT * FROM USUARIO";
+			String sql = "SELECT USUARIO.id, USUARIO.nombre, USUARIO.presupuesto, USUARIO.tiempo_disponible, Tipo_atraccion.nombre AS 'atraccion_preferida'"
+					+ "FROM USUARIO "
+					+ "INNER JOIN Tipo_atraccion ON Tipo_atraccion.id = Usuario.atraccion_preferida";
 			Connection conn = ConexionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet resultados = statement.executeQuery();
