@@ -52,8 +52,8 @@ public class LectorUsuario {
 		} 
 		Usuario usuario;
 		try {
-			usuario = new Usuario(lin[0], Integer.parseInt(lin[1]), Double.parseDouble(lin[2]),
-					TipoAtraccion.valueOf(lin[3].toUpperCase()));
+			usuario = new Usuario(Integer.parseInt(lin[0]), lin[1], Integer.parseInt(lin[2]), Double.parseDouble(lin[3]),
+					TipoAtraccion.valueOf(lin[4].toUpperCase()));
 			} catch (NumberFormatException e) {
 			throw new UsuarioException("Uno de los parametros ingresados en la linea [" + linea +  "] no es un numero valido");
 		} catch (IllegalArgumentException e) {
