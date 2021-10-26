@@ -48,7 +48,7 @@ public class LectorAtracciones {
 		}
 		Atraccion A;
 		try {
-		A = new Atraccion(lin[0], Integer.parseInt(lin[1]), Double.parseDouble(lin[2]), 
+		A = new Atraccion(0, lin[0], Integer.parseInt(lin[1]), Double.parseDouble(lin[2]), 
 				Integer.parseInt(lin[3]), TipoAtraccion.valueOf(lin[4].toUpperCase()));
 		} catch (NumberFormatException e)  {
 			throw new AtraccionException("Uno de los parametros ingresados en la linea [" + linea +  "] no es un numero valido");
@@ -56,5 +56,5 @@ public class LectorAtracciones {
 			throw new AtraccionException("El parametro " + lin[4] + " ingresado en la linea [" + linea +  "] no corresponde a un tipo de atraccion valido");
 	}
 		return A;
-		}	
+		}
 }
