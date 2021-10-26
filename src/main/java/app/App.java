@@ -1,5 +1,6 @@
 package app;
 
+import dao.AtraccionDAO;
 import dao.DAOFactory;
 import dao.UsuarioDAO;
 import tierraMedia.TipoAtraccion;
@@ -11,14 +12,20 @@ public class App {
 		UsuarioDAO usuarioDAO = DAOFactory.getUsuarioDAO();
 		
 		System.out.println("----------------------------------");
-		Usuario Eowyn = new Usuario(154, "Eowyn", 10, 8, TipoAtraccion.AVENTURA);
-		usuarioDAO.insert(Eowyn);
+		Usuario as = new Usuario(9, "as", 10, 8, TipoAtraccion.AVENTURA);
 		
+		usuarioDAO.insert(as);
 		System.out.println(usuarioDAO.findAll());
 		System.out.println(usuarioDAO.countAll());
-		usuarioDAO.delete(Eowyn);
 		
+		usuarioDAO.delete(as);
 		System.out.println(usuarioDAO.findAll());
 		System.out.println(usuarioDAO.countAll());		
+		
+		
+		AtraccionDAO atraccionDAO = DAOFactory.getAtraccionDAO();
+		
+		System.out.println(atraccionDAO.findAll());
+		System.out.println(atraccionDAO.countAll());
 	}
 }
