@@ -1,5 +1,9 @@
 package dao;
 
-public class AtraccionDAO {
+import tierraMedia.Atraccion;
+
+public interface AtraccionDAO extends GenericDAO<Atraccion>{
+	
+	public Atraccion findByAtraccion(String nombre);
 
 }
