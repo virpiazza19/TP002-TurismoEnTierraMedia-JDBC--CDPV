@@ -12,27 +12,6 @@ import tierraMedia.TipoAtraccion;
 
 public class UsuarioDAOImpl implements UsuarioDAO {
 
-	public int insert(Usuario usuario) {
-		
-		try {
-			String sql = "INSERT INTO USUARIO (ID, NOMBRE, PRESUPUESTO, TIEMPO_DISPONIBLE, ATRACCION_PREFERIDA)"
-					+ "VALUES (?, ?, ?, ?, ?)";
-			Connection conn = ConexionProvider.getConnection();
-
-			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setInt(1, usuario.getId());
-			statement.setString(2, usuario.getNombre());
-			statement.setInt(3, usuario.getPresupuesto());
-			statement.setDouble(4, usuario.getTiempoDisponible());
-			statement.setString(5, String.valueOf(usuario.getAtraccionPreferida()));
-			int rows = statement.executeUpdate();
-
-			return rows;
-		} catch (Exception e) {
-			throw new MissingDataException(e);
-		}
-	}
-
 	public int update(Usuario usuario) {
 		try {
 			String sql = "UPDATE USUARIO SET PRESUPUESTO = ?, TIEMPO_DISPONIBLE = ? WHERE NOMBRE = ?";
@@ -41,21 +20,6 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setInt(1, usuario.getPresupuesto());
 			statement.setDouble(2, usuario.getTiempoDisponible());
-			int rows = statement.executeUpdate();
-
-			return rows;
-		} catch (Exception e) {
-			throw new MissingDataException(e);
-		}
-	}
-
-	public int delete(Usuario usuario) {
-		try {
-			String sql = "DELETE FROM USUARIO WHERE nombre = ?";
-			Connection conn = ConexionProvider.getConnection();
-
-			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, usuario.getNombre());
 			int rows = statement.executeUpdate();
 
 			return rows;
