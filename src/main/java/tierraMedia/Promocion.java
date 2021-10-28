@@ -44,6 +44,10 @@ public abstract class Promocion extends Producto {
 	protected Atraccion[] getAtraccionesEnPromocion() {
 		return this.atraccionesEnPromocion;
 	}
+	
+	public void setAtraccionesEnPromocion(Atraccion[] atraccionesEnPromocion) {
+		this.atraccionesEnPromocion = atraccionesEnPromocion;
+	}
 
 	@Override
 	protected boolean esPromo() {
