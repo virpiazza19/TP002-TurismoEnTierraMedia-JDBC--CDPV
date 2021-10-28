@@ -1,9 +1,12 @@
 package app;
 
+import java.util.List;
+
 import dao.AtraccionDAO;
 import dao.DAOFactory;
 import dao.PromocionDAO;
 import dao.UsuarioDAO;
+import tierraMedia.Atraccion;
 
 public class App {
 
@@ -18,12 +21,14 @@ public class App {
 
 		AtraccionDAO atraccionDAO = DAOFactory.getAtraccionDAO();
 
-		System.out.println(atraccionDAO.findAll());
+		List<Atraccion> atracciones = atraccionDAO.findAll(); 
+		
+		System.out.println(atracciones);
 		
 		System.out.println("----------------------------------");
 
 		PromocionDAO promocionDAO = DAOFactory.getPromocionDAO();
 
-		System.out.println(promocionDAO.findAll());
+		System.out.println(promocionDAO.findAllPromo(atracciones));
 	}
 }

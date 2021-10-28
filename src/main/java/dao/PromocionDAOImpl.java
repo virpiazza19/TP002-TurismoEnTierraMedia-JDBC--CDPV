@@ -4,12 +4,18 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import conexion.ConexionProvider;
 import tierraMedia.Atraccion;
 import tierraMedia.Promocion;
+import tierraMedia.PromocionAbsoluta;
+import tierraMedia.PromocionAxB;
+import tierraMedia.PromocionPorcentual;
 import tierraMedia.TipoAtraccion;
 import tierraMedia.TipoPromocion;
 
@@ -30,7 +36,7 @@ public class PromocionDAOImpl implements PromocionDAO {
 		}
 	}
 
-	public List<Promocion> findAll() {
+	public List<Promocion> findAllPromo(List<Atraccion> atracciones) {
 		try {
 			String sql = "SELECT Promocion.id AS 'ID', Promocion.nombre AS 'Nombre Promocion', Tipo_promocion.nombre AS 'Tipo de Promocion', "
 					+ "Tipo_atraccion.nombre AS 'Tipo de atracciones', Atraccion.nombre AS 'Atracciones incluidas', "
@@ -45,21 +51,82 @@ public class PromocionDAOImpl implements PromocionDAO {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet resultados = statement.executeQuery();
 
-			List<Promocion> promocion = new LinkedList<Promocion>();
+			List<Promocion> promociones = new ArrayList<Promocion>();
+			Map<Promocion, List<Atraccion>> mapP = new HashMap<Promocion, List<Atraccion>>();
+
 			while (resultados.next()) {
-				promocion.add(toPromocion(resultados));
+				if (resultados.getString("Tipo de Promocion").equals("AXB")) {
+					PromocionAxB promo = promoAxB(resultados);
+					agregarAtraccion(mapP, resultados, atracciones, promo);
+				}
+
+				if (resultados.getString("Tipo de Promocion").equals("ABSOLUTA")) {
+					PromocionAbsoluta promo = promoAbsoluta(resultados);
+					agregarAtraccion(mapP, resultados, atracciones, promo);
+				}
+
+				if (resultados.getString("Tipo de Promocion").equals("PORCENTUAL")) {
+					PromocionPorcentual promo = promoPorcentual(resultados);
+					agregarAtraccion(mapP, resultados, atracciones, promo);
+				}
 			}
 
-			return promocion;
+			for (Map.Entry<Promocion, List<Atraccion>> entry : mapP.entrySet()) {
+				entry.getKey().setAtraccionesEnPromocion(entry.getValue());
+				promociones.add(entry.getKey());
+
+			}
+
+			return promociones;
 		} catch (Exception e) {
 			throw new MissingDataException(e);
 		}
 	}
 
-	private Promocion toPromocion(ResultSet results) throws SQLException {
-		return new Promocion(results.getInt(1), results.getString(2), TipoPromocion.valueOf(results.getString(3)),
-				TipoAtraccion.valueOf(results.getString(4)), results.getString(5), results.getInt(6),
-				results.getString(7), results.getInt(8));
+	private PromocionPorcentual promoPorcentual(ResultSet resultados) throws SQLException {
+		return new PromocionPorcentual(resultados.getInt("ID"),
+				TipoAtraccion.valueOf(resultados.getString("Tipo de atracciones")),
+				resultados.getString("Nombre Promocion"), resultados.getDouble("Tipo descuento promocion porcentual"));
 	}
+
+	private PromocionAbsoluta promoAbsoluta(ResultSet resultados) throws SQLException {
+		return new PromocionAbsoluta(resultados.getInt("ID"),
+				TipoAtraccion.valueOf(resultados.getString("Tipo de atracciones")),
+				resultados.getString("Nombre Promocion"), resultados.getInt("Costo total promocion absoluta"));
+	}
+
+	private PromocionAxB promoAxB(ResultSet resultados) throws SQLException {
+		return new PromocionAxB(resultados.getInt("ID"),
+				TipoAtraccion.valueOf(resultados.getString("Tipo de atracciones")),
+				resultados.getString("Nombre Promocion"));
+	}
+
+	private Atraccion buscarAtraccion(List<Atraccion> atracciones, String nombre) {
+		Atraccion a = null;
+		for (Atraccion atraccion : atracciones) {
+			if (atraccion.getNombre().equals(nombre)) {
+				return atraccion;
+			}
+		}
+		return a;
+	}
+
+	private void agregarAtraccion(Map<Promocion, List<Atraccion>> mapP, ResultSet resultados,
+			List<Atraccion> atracciones, Promocion promo) throws SQLException {
+		if (mapP.containsKey(promo)) {
+			List<Atraccion> atr = mapP.get(promo);
+			Atraccion a = buscarAtraccion(atracciones, resultados.getString("Atracciones incluidas"));
+			atr.add(a);
+			mapP.put(promo, atr);
+
+		} else {
+			List<Atraccion> atr = new ArrayList<Atraccion>();
+			Atraccion a = buscarAtraccion(atracciones, resultados.getString("Atracciones incluidas"));
+			atr.add(a);
+			mapP.put(promo, atr);
+		}
+	}
+
+	
 
 }
