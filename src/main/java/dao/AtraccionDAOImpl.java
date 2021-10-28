@@ -28,42 +28,6 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 		}
 	}
 
-	public Atraccion findByAtraccion(String nombre) {
-		try {
-			String sql = "SELECT * FROM ATRACCION WHERE NOMBRE = ?";
-			Connection conn = ConexionProvider.getConnection();
-			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, nombre);
-			ResultSet resultados = statement.executeQuery();
-
-			Atraccion atraccion = null;
-
-			if (resultados.next()) {
-				atraccion = toAtraccion(resultados);
-			}
-
-			return atraccion;
-		} catch (Exception e) {
-			throw new MissingDataException(e);
-		}
-	}
-
-	public int countAll() {
-		try {
-			String sql = "SELECT COUNT(1) AS TOTAL FROM ATRACCION";
-			Connection conn = ConexionProvider.getConnection();
-			PreparedStatement statement = conn.prepareStatement(sql);
-			ResultSet resultados = statement.executeQuery();
-
-			resultados.next();
-			int total = resultados.getInt("TOTAL");
-
-			return total;
-		} catch (Exception e) {
-			throw new MissingDataException(e);
-		}
-	}
-
 	public List<Atraccion> findAll() {
 		try {
 			String sql = "SELECT ATRACCION.id, ATRACCION.nombre, ATRACCION.costo, ATRACCION.duracion, ATRACCION.cupo, Tipo_atraccion.nombre AS 'tipo_atraccion'\r\n"

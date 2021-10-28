@@ -1,5 +1,7 @@
 package dao;
 
-public class PromocionDAO {
+import tierraMedia.Promocion;
 
+public interface PromocionDAO extends GenericDAO<Promocion>{
+	
 }

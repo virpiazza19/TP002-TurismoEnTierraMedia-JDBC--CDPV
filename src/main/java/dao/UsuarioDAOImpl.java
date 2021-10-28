@@ -28,50 +28,11 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		}
 	}
 
-	public Usuario findByUsername(String nombre) {
-		try {
-			String sql = "SELECT USUARIO.id, USUARIO.nombre, USUARIO.presupuesto, USUARIO.tiempo_disponible, Tipo_atraccion.nombre AS 'atraccion_preferida'\r\n"
-					+ "FROM USUARIO "
-					+ "INNER JOIN Tipo_atraccion ON Tipo_atraccion.id = Usuario.atraccion_preferida\r\n"
-					+ "WHERE NOMBRE = ?";
-			Connection conn = ConexionProvider.getConnection();
-			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, nombre);
-			ResultSet resultados = statement.executeQuery();
-
-			Usuario usuario = null;
-
-			if (resultados.next()) {
-				usuario = toUsuario(resultados);
-			}
-
-			return usuario;
-		} catch (Exception e) {
-			throw new MissingDataException(e);
-		}
-	}
-
-	public int countAll() {
-		try {
-			String sql = "SELECT COUNT(1) AS TOTAL FROM USUARIO";
-			Connection conn = ConexionProvider.getConnection();
-			PreparedStatement statement = conn.prepareStatement(sql);
-			ResultSet resultados = statement.executeQuery();
-
-			resultados.next();
-			int total = resultados.getInt("TOTAL");
-
-			return total;
-		} catch (Exception e) {
-			throw new MissingDataException(e);
-		}
-	}
-
 	public List<Usuario> findAll() {
 		try {
-			String sql = "SELECT USUARIO.id, USUARIO.nombre, USUARIO.presupuesto, USUARIO.tiempo_disponible, Tipo_atraccion.nombre AS 'atraccion_preferida'"
-					+ "FROM USUARIO "
-					+ "INNER JOIN Tipo_atraccion ON Tipo_atraccion.id = Usuario.atraccion_preferida";
+			String sql = "SELECT USUARIO.id, USUARIO.nombre, USUARIO.presupuesto, USUARIO.tiempo_disponible, Tipo_atraccion.nombre AS 'atraccion_preferida' \r\n"
+					+ "FROM USUARIO\r\n "
+					+ "INNER JOIN Tipo_atraccion ON Tipo_atraccion.id = Usuario.atraccion_preferida\r\n";
 			Connection conn = ConexionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet resultados = statement.executeQuery();
@@ -88,7 +49,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 	}
 
 	private Usuario toUsuario(ResultSet results) throws SQLException {
-		return new Usuario(results.getInt(1), results.getString(2),results.getInt(3), 
-				results.getDouble(4), TipoAtraccion.valueOf(results.getString(5)));
+		return new Usuario(results.getInt(1), results.getString(2), results.getInt(3), results.getDouble(4),
+				TipoAtraccion.valueOf(results.getString(5)));
 	}
 }
