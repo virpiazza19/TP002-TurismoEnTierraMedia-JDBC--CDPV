@@ -49,12 +49,12 @@ public class OfertadorDeProductos {
 			System.out.println(usuario.itinerario);
 			System.out.println("\t\t\t\t COSTO TOTAL: " + usuario.itinerario.costoTotal() + " monedas.");
 			System.out.println("\t\t\t\t DURACION TOTAL: " + usuario.itinerario.duracionTotal() + " horas.");
-			try {
-				EscritorDeArchivosDeUsuario.crearArchivoDeSalida(usuario,
-						"archivosDeSalida/" + usuario.getNombre() + ".csv");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+	//		try {
+	//			EscritorDeArchivosDeUsuario.crearArchivoDeSalida(usuario,
+	//					"archivosDeSalida/" + usuario.getNombre() + ".csv");
+	//		} catch (IOException e) {
+	//			e.printStackTrace();
+	//		}
 		}
 		System.out.println("\n\n\n\t\t\t\t FIN PROGRAMA");
 	}
