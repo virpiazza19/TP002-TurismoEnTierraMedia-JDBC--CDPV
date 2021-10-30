@@ -5,41 +5,25 @@ import java.util.List;
 
 public class Itinerario {
 	protected List<Producto> productos = new ArrayList<Producto>();
-	private String usuario;
-	private String atraccion;
-	private String promo;
+	private Usuario usuario;
 	
 	public Itinerario() {
 	}
 
-	public Itinerario(String usuario, String atraccion, String promo) {
+	public Itinerario(Usuario usuario, Atraccion atraccion, Promocion promo) {
 		this.usuario = usuario;
 		this.atraccion = atraccion;
 		this.promo = promo;
 	}
 
-	public String getUsuario() {
+	public Usuario getUsuario() {
 		return usuario;
 	}
 
-	public void setUsuario(String usuario) {
+	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
 
-	public String getAtraccion() {
-		return atraccion;
-	}
-
-	public void setAtraccion(String atraccion) {
-		this.atraccion = atraccion;
-	}
-
-	public String getPromo() {
-		return promo;
-	}
-
-	public void setPromo(String promo) {
-		this.promo = promo;
 	}
 
 	protected void agregarProductos(Producto p) {
