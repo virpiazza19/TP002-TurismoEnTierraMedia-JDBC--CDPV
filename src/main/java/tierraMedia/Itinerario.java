@@ -5,6 +5,27 @@ import java.util.List;
 
 public class Itinerario {
 	protected List<Producto> productos = new ArrayList<Producto>();
+	private Usuario usuario;
+	
+	public Itinerario() {
+	}
+
+	public Itinerario(Usuario usuario, List<Producto> productos) {
+		this.usuario = usuario;
+		this.productos = productos;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	
+	public List<Producto> getProductos() {
+		return productos;
+	}
 
 	protected void agregarProductos(Producto p) {
 		this.productos.add(p);
