@@ -10,22 +10,33 @@ import java.util.List;
 import conexion.ConexionProvider;
 import tierraMedia.Atraccion;
 import tierraMedia.Itinerario;
+import tierraMedia.Producto;
 import tierraMedia.TipoAtraccion;
+import tierraMedia.Usuario;
 
 public class ItinerarioDAOImpl implements ItinerarioDAO {
 	
-	public int insert(Itinerario itinerario) {
+	public void insert(Producto producto, Usuario usuario) {
 		try {
-			String sql = "INSERT INTO ITINERARIO (USUARIO_ID, ATRACCION_ID, PROMOCION_ID) VALUES (?, ?, ?)";
+			if (producto.esPromo()) {
+				String sql = "INSERT INTO ITINERARIO (USUARIO_ID, PROMOCION_ID) VALUES (?, ?)";
+				Connection conn = ConexionProvider.getConnection();
+
+				PreparedStatement statement = conn.prepareStatement(sql);
+				statement.setInt(1, usuario.getId());
+				statement.setInt(2, producto.getId());
+				//int rows = statement.executeUpdate();
+			}
+		 else {
+			String sql = "INSERT INTO ITINERARIO (USUARIO_ID, ATRACCION_ID)" + "VALUES(?, ?)";
 			Connection conn = ConexionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setInt(1, itinerario.getUsuario().id);
-			statement.setString(2, itinerario.getAtraccion());
-			statement.setString(3, itinerario.getPromo());
-			int rows = statement.executeUpdate();
+			statement.setInt(1, usuario.getId());
+			statement.setInt(2, producto.getId());
+			statement.executeUpdate();
+		}
 
-			return rows;
 		} catch (Exception e) {
 			throw new MissingDataException(e);
 		}
@@ -33,12 +44,12 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 
 	public List<Itinerario> findAll() {
 		try {
-			String sql = "SELECT (SELECT NOMBRE FROM USUARIO WHERE USUARIO.id= ITINERARIO.usuario_id) AS 'NOMBRE USUARIO', \r\n"
+			String sql = "SELECT \r\n"
+					+ "(SELECT NOMBRE FROM USUARIO WHERE USUARIO.id= ITINERARIO.usuario_id) AS 'NOMBRE USUARIO',\r\n"
 					+ "(SELECT NOMBRE FROM PROMOCION WHERE PROMOCION.id=ITINERARIO.promocion_id) AS 'PROMOCION COMPRADA',\r\n"
 					+ "(SELECT NOMBRE FROM ATRACCION WHERE ATRACCION.id=ITINERARIO.atraccion_id) AS 'ATRACCION COMPRADA'\r\n"
 					+ "FROM  Itinerario\r\n"
-					+ "WHERE ITINERARIO.id IS NOT NULL\r\n"
-					+ "ORDER BY usuario_id"; 
+					+ "WHERE ITINERARIO.id IS NOT NULL"; // Se podría ordenar por nombre de usuario, o el id
 			Connection conn = ConexionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet resultados = statement.executeQuery();
@@ -60,11 +71,7 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 
 	public Itinerario findByNombreUsuario(String nombre) {
 		try {
-			String sql = "SELECT (SELECT NOMBRE FROM USUARIO WHERE USUARIO.id= ITINERARIO.usuario_id) AS 'NOMBRE USUARIO', \r\n"
-					+ "(SELECT NOMBRE FROM PROMOCION WHERE PROMOCION.id=ITINERARIO.promocion_id) AS 'PROMOCION COMPRADA',\r\n"
-					+ "(SELECT NOMBRE FROM ATRACCION WHERE ATRACCION.id=ITINERARIO.atraccion_id) AS 'ATRACCION COMPRADA'\r\n"
-					+ "FROM  Itinerario\r\n"
-					+ "WHERE \"NOMBRE USUARIO\" LIKE '?'";
+			String sql = "SELECT * FROM ITINERARIO WHERE USUARIO_ID = ?";
 			Connection conn = ConexionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, nombre);
