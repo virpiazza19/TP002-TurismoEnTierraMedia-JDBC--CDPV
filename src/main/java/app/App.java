@@ -4,9 +4,11 @@ import java.util.List;
 
 import dao.AtraccionDAO;
 import dao.DAOFactory;
+import dao.ItinerarioDAO;
 import dao.PromocionDAO;
 import dao.UsuarioDAO;
 import tierraMedia.Atraccion;
+import tierraMedia.Itinerario;
 
 public class App {
 
@@ -30,5 +32,13 @@ public class App {
 		PromocionDAO promocionDAO = DAOFactory.getPromocionDAO();
 
 		System.out.println(promocionDAO.findAllPromo(atracciones));
+		
+		System.out.println("----------------------------------");
+
+		ItinerarioDAO itinerarioDAO = DAOFactory.getItinerarioDAO();
+		
+		List <Itinerario> itinerario = itinerarioDAO.findAll();
+
+		System.out.println(itinerario);
 	}
 }
