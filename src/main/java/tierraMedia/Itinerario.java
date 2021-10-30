@@ -5,6 +5,33 @@ import java.util.List;
 
 public class Itinerario {
 	protected List<Producto> productos = new ArrayList<Producto>();
+	private Usuario usuario;
+	private Atraccion atraccion;
+	private Promocion promo;
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public Atraccion getAtraccion() {
+		return atraccion;
+	}
+
+	public void setAtraccion(Atraccion atraccion) {
+		this.atraccion = atraccion;
+	}
+
+	public Promocion getPromo() {
+		return promo;
+	}
+
+	public void setPromo(Promocion promo) {
+		this.promo = promo;
+	}
 
 	protected void agregarProductos(Producto p) {
 		this.productos.add(p);
