@@ -10,9 +10,9 @@ public class Itinerario {
 	public Itinerario() {
 	}
 
-	public Itinerario(List<Producto> productos, Usuario usuario) {
-		this.productos = productos;
+	public Itinerario(Usuario usuario, List<Producto> productos) {
 		this.usuario = usuario;
+		this.productos = productos;
 	}
 
 	public Usuario getUsuario() {

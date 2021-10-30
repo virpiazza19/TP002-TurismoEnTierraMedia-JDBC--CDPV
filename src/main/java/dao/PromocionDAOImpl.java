@@ -109,7 +109,4 @@ public class PromocionDAOImpl implements PromocionDAO {
 			mapP.put(promo, atr);
 		}
 	}
-
-	
-
 }

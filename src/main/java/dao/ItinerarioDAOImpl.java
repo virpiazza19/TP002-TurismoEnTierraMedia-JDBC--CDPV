@@ -25,7 +25,6 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 				PreparedStatement statement = conn.prepareStatement(sql);
 				statement.setInt(1, usuario.getId());
 				statement.setInt(2, producto.getId());
-				//int rows = statement.executeUpdate();
 			}
 		 else {
 			String sql = "INSERT INTO ITINERARIO (USUARIO_ID, ATRACCION_ID)" + "VALUES(?, ?)";
@@ -66,7 +65,7 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 	}
 	
 	private Itinerario toItinerario(ResultSet resultados) throws SQLException {
-		return new Itinerario(resultados.getInt(1), resultados.getString(2), resultados.getString(3));
+		return new Itinerario(resultados.getInt(1), resultados.getInt(2)));
 	}
 
 	public Itinerario findByNombreUsuario(String nombre) {
