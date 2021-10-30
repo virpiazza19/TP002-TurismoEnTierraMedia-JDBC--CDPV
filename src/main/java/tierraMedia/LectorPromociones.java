@@ -20,7 +20,7 @@ public class LectorPromociones {
 			String linea = br.readLine();
 			while (linea != null) {
 				try {
-				promociones.add(crearPromocion(linea, atracciones));
+	//			promociones.add(crearPromocion(linea, atracciones));
 				} catch (NumberFormatException e) {
 					System.out.println("Uno de los datos leidos en ["+ linea + "] no es un numero valido");
 				} catch (IllegalArgumentException iae) {
@@ -44,7 +44,7 @@ public class LectorPromociones {
 		return promociones;
 	}
 
-	private Promocion crearPromocion(String linea, List<Atraccion> atracciones) {
+	/*private Promocion crearPromocion(String linea, List<Atraccion> atracciones) {
 		String[] lin = linea.split(",");
 		if (lin[0].toUpperCase().equals("AXB")) {
 			return crearAxB(atracciones, lin);}
@@ -117,5 +117,5 @@ public class LectorPromociones {
 			}
 		}
 		return a;
-	}
+	}*/
 }
