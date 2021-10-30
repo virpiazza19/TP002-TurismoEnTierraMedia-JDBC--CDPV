@@ -20,9 +20,9 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 			Connection conn = ConexionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, itinerario.getUsuario());
-			statement.setString(2, itinerario.getAtraccion());
-			statement.setString(3, itinerario.getPromo());
+			statement.setString(1, itinerario.getUsuario().toString());
+			statement.setString(2, itinerario.getAtraccion().toString());
+			statement.setString(3, itinerario.getPromo().toString());
 			int rows = statement.executeUpdate();
 
 			return rows;
@@ -33,10 +33,12 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 
 	public List<Itinerario> findAll() {
 		try {
-			String sql = "SELECT ATRACCION.id, ATRACCION.nombre, ATRACCION.costo, ATRACCION.duracion, ATRACCION.cupo, Tipo_atraccion.nombre AS 'tipo_atraccion'\r\n"
-					+ "FROM ATRACCION\r\n"
-					+ "JOIN Tipo_atraccion ON Tipo_atraccion.id = ATRACCION.tipo\r\n"
-					+ "";
+			String sql = "SELECT \r\n"
+					+ "(SELECT NOMBRE FROM USUARIO WHERE USUARIO.id= ITINERARIO.usuario_id) AS 'NOMBRE USUARIO',\r\n"
+					+ "(SELECT NOMBRE FROM PROMOCION WHERE PROMOCION.id=ITINERARIO.promocion_id) AS 'PROMOCION COMPRADA',\r\n"
+					+ "(SELECT NOMBRE FROM ATRACCION WHERE ATRACCION.id=ITINERARIO.atraccion_id) AS 'ATRACCION COMPRADA'\r\n"
+					+ "FROM  Itinerario\r\n"
+					+ "WHERE ITINERARIO.id IS NOT NULL";
 			Connection conn = ConexionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet resultados = statement.executeQuery();
