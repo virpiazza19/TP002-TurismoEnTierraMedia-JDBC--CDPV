@@ -20,7 +20,7 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 			Connection conn = ConexionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, itinerario.getUsuario());
+			statement.setInt(1, itinerario.getUsuario().id);
 			statement.setString(2, itinerario.getAtraccion());
 			statement.setString(3, itinerario.getPromo());
 			int rows = statement.executeUpdate();
@@ -55,7 +55,7 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 	}
 	
 	private Itinerario toItinerario(ResultSet resultados) throws SQLException {
-		return new Itinerario(resultados.getString(1), resultados.getString(2), resultados.getString(3));
+		return new Itinerario(resultados.getInt(1), resultados.getString(2), resultados.getString(3));
 	}
 
 	public Itinerario findByNombreUsuario(String nombre) {

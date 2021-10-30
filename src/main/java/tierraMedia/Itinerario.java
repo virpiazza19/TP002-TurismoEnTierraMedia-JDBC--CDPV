@@ -10,10 +10,9 @@ public class Itinerario {
 	public Itinerario() {
 	}
 
-	public Itinerario(Usuario usuario, Atraccion atraccion, Promocion promo) {
+	public Itinerario(List<Producto> productos, Usuario usuario) {
+		this.productos = productos;
 		this.usuario = usuario;
-		this.atraccion = atraccion;
-		this.promo = promo;
 	}
 
 	public Usuario getUsuario() {
@@ -22,8 +21,6 @@ public class Itinerario {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
-	}
-
 	}
 
 	protected void agregarProductos(Producto p) {

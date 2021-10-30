@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Usuario {
 
-	private int id;
+	public int id;
 	private String nombre;
 	private int presupuesto;
 	private double tiempoDisponible;
