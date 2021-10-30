@@ -32,7 +32,7 @@ public abstract class Producto {
 		return tipoAtraccion;
 	}
 	
-	protected boolean esPromo() {
+	public boolean esPromo() {
 		return false;
 	}
 
