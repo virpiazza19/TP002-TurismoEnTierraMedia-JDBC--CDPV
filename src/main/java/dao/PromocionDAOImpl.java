@@ -19,21 +19,6 @@ import tierraMedia.TipoAtraccion;
 
 public class PromocionDAOImpl implements PromocionDAO {
 
-	public int update(Promocion promocion) {
-		try {
-			String sql = "UPDATE PROMOCION SET NOMBRE= ? WHERE ID = ?";
-			Connection conn = ConexionProvider.getConnection();
-
-			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, promocion.getNombre());
-			int rows = statement.executeUpdate();
-
-			return rows;
-		} catch (Exception e) {
-			throw new MissingDataException(e);
-		}
-	}
-
 	public List<Promocion> findAllPromo(List<Atraccion> atracciones) {
 		try {
 			String sql = "SELECT Promocion.id AS 'ID', Promocion.nombre AS 'Nombre Promocion', Tipo_promocion.nombre AS 'Tipo de Promocion', "
