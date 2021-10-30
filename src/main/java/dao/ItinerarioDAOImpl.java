@@ -22,7 +22,7 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, itinerario.getUsuario());
 			statement.setString(2, itinerario.getAtraccion());
-			statement.setString(3, itinerario.getPromocion());
+			statement.setString(3, itinerario.getPromo());
 			int rows = statement.executeUpdate();
 
 			return rows;
@@ -52,9 +52,8 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 		}
 	}
 	
-	private Itinerario toItinerario(ResultSet results) throws SQLException {
-		return new Itinerario(results.getInt(1), results.getString(2), results.getInt(3), results.getDouble(4), 
-				results.getInt(5), TipoAtraccion.valueOf(results.getString(6)));
+	private Itinerario toItinerario(ResultSet resultados) throws SQLException {
+		return new Itinerario(resultados.getString(1), resultados.getString(2), resultados.getString(3));
 	}
 
 	public Itinerario findByNombreUsuario(String nombre) {

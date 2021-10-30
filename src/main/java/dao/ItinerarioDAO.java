@@ -2,7 +2,7 @@ package dao;
 
 import tierraMedia.Itinerario;
 
-public interface ItinerarioDAO extends GenericDAO<Itinerario>{
+public interface ItinerarioDAO {
 	
 	public abstract Itinerario findByNombreUsuario(String nombre);
 
