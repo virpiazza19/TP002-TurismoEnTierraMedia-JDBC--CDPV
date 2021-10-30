@@ -33,12 +33,12 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 
 	public List<Itinerario> findAll() {
 		try {
-			String sql = "SELECT \r\n"
-					+ "(SELECT NOMBRE FROM USUARIO WHERE USUARIO.id= ITINERARIO.usuario_id) AS 'NOMBRE USUARIO',\r\n"
+			String sql = "SELECT (SELECT NOMBRE FROM USUARIO WHERE USUARIO.id= ITINERARIO.usuario_id) AS 'NOMBRE USUARIO', \r\n"
 					+ "(SELECT NOMBRE FROM PROMOCION WHERE PROMOCION.id=ITINERARIO.promocion_id) AS 'PROMOCION COMPRADA',\r\n"
 					+ "(SELECT NOMBRE FROM ATRACCION WHERE ATRACCION.id=ITINERARIO.atraccion_id) AS 'ATRACCION COMPRADA'\r\n"
 					+ "FROM  Itinerario\r\n"
-					+ "WHERE ITINERARIO.id IS NOT NULL"; // Se podría ordenar por nombre de usuario, o el id
+					+ "WHERE ITINERARIO.id IS NOT NULL\r\n"
+					+ "ORDER BY usuario_id"; 
 			Connection conn = ConexionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet resultados = statement.executeQuery();
