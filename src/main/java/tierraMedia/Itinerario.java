@@ -9,6 +9,12 @@ public class Itinerario {
 	private Atraccion atraccion;
 	private Promocion promo;
 	
+	public Itinerario(Usuario usuario, Atraccion atraccion, Promocion promo) {
+		this.usuario = usuario;
+		this.atraccion = atraccion;
+		this.promo = promo;
+	}
+
 	public Usuario getUsuario() {
 		return usuario;
 	}
