@@ -20,9 +20,9 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 			Connection conn = ConexionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, itinerario.getUsuario().toString());
-			statement.setString(2, itinerario.getAtraccion().toString());
-			statement.setString(3, itinerario.getPromo().toString());
+			statement.setString(1, itinerario.getUsuario());
+			statement.setString(2, itinerario.getAtraccion());
+			statement.setString(3, itinerario.getPromo());
 			int rows = statement.executeUpdate();
 
 			return rows;
@@ -38,7 +38,7 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 					+ "(SELECT NOMBRE FROM PROMOCION WHERE PROMOCION.id=ITINERARIO.promocion_id) AS 'PROMOCION COMPRADA',\r\n"
 					+ "(SELECT NOMBRE FROM ATRACCION WHERE ATRACCION.id=ITINERARIO.atraccion_id) AS 'ATRACCION COMPRADA'\r\n"
 					+ "FROM  Itinerario\r\n"
-					+ "WHERE ITINERARIO.id IS NOT NULL";
+					+ "WHERE ITINERARIO.id IS NOT NULL"; // Se podría ordenar por nombre de usuario, o el id
 			Connection conn = ConexionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet resultados = statement.executeQuery();
