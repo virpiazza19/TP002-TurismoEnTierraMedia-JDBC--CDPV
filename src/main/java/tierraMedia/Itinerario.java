@@ -22,6 +22,10 @@ public class Itinerario {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+	
+	public List<Producto> getProductos() {
+		return productos;
+	}
 
 	protected void agregarProductos(Producto p) {
 		this.productos.add(p);
