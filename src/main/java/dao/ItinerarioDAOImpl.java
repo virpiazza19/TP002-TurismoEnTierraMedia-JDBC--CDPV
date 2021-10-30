@@ -31,21 +31,6 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 		}
 	}
 
-	public int update(Itinerario itinerario) {
-		try {
-			String sql = "UPDATE ITINERARIO SET ATRACCION_ID= ?, PROMOCION_ID= ? WHERE USUARIO_ID = ?";
-			Connection conn = ConexionProvider.getConnection();
-
-			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, itinerario.getUsuario());
-			int rows = statement.executeUpdate();
-
-			return rows;
-		} catch (Exception e) {
-			throw new MissingDataException(e);
-		}
-	}
-	
 	public List<Itinerario> findAll() {
 		try {
 			String sql = "SELECT ATRACCION.id, ATRACCION.nombre, ATRACCION.costo, ATRACCION.duracion, ATRACCION.cupo, Tipo_atraccion.nombre AS 'tipo_atraccion'\r\n"
@@ -72,25 +57,9 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 				results.getInt(5), TipoAtraccion.valueOf(results.getString(6)));
 	}
 
-	public int countAll() {
-		try {
-			String sql = "SELECT COUNT(1) AS TOTAL FROM ITINERARIO";
-			Connection conn = ConexionProvider.getConnection();
-			PreparedStatement statement = conn.prepareStatement(sql);
-			ResultSet resultados = statement.executeQuery();
-
-			resultados.next();
-			int total = resultados.getInt("TOTAL");
-
-			return total;
-		} catch (Exception e) {
-			throw new MissingDataException(e);
-		}
-	}
-	
 	public Itinerario findByNombreUsuario(String nombre) {
 		try {
-			String sql = "SELECT * FROM USERS WHERE USERNAME = ?";
+			String sql = "SELECT * FROM ITINERARIO WHERE USUARIO_ID = ?";
 			Connection conn = ConexionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, nombre);
