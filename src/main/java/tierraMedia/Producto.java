@@ -7,7 +7,7 @@ public abstract class Producto {
 
 	protected List<Atraccion> atracciones = new ArrayList<Atraccion>();
 	protected List<Promocion> promociones = new ArrayList<Promocion>();
-	protected int id;
+	public int id;
 	protected TipoAtraccion tipoAtraccion;
 	protected String nombre;
 	protected int costo;
