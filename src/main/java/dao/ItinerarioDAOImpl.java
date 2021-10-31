@@ -16,7 +16,7 @@ import tierraMedia.Promocion;
 import tierraMedia.TipoAtraccion;
 
 public class ItinerarioDAOImpl implements ItinerarioDAO {
-	
+
 	public int insert(Itinerario itinerario) {
 		try {
 			String sql = "INSERT INTO ITINERARIO (USUARIO_ID, ATRACCION_ID, PROMOCION_ID) VALUES (?, ?, ?)";
@@ -37,36 +37,39 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 	public List<Producto> findAll(int idUsuario, List<Producto> productos) {
 		try {
 			String sql = "select promocion_id, atraccion_id from Itinerario WHERE usuario_id = ?";
-			String promo = "select promocion.id, promocion.nombre from Promocion\r\n"
-					+ "INNER JOIN Itinerario on \r\n"
+			String promo = "select promocion.id, promocion.nombre from Promocion\r\n" + "INNER JOIN Itinerario on \r\n"
 					+ "Promocion.id = ?;";
-			String atracc = "select Atraccion.id, Atraccion.nombre from Atraccion\r\n"
-					+ "INNER JOIN Itinerario on \r\n"
+			String atracc = "select Atraccion.id, Atraccion.nombre from Atraccion\r\n" + "INNER JOIN Itinerario on \r\n"
 					+ "Atraccion.id = ?;";
-			
+
 			Connection conn = ConexionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			PreparedStatement statementPromo = conn.prepareStatement(promo);
 			PreparedStatement statementAtrac = conn.prepareStatement(atracc);
-			
+
 			statement.setInt(1, idUsuario);
 			ResultSet resultados = statement.executeQuery();
-
+			
+		
 			List<Producto> itinerario = new ArrayList<Producto>();
 			while (resultados.next()) {
-				
+
 				if (!(resultados.getString(1) == null)) {
-					
+
+					System.out.println("misa");
+
 					statementPromo.setInt(1, resultados.getInt(1));
 					ResultSet pr = statementPromo.executeQuery();
-			
+
 					Producto promocion = buscarProducto(pr, productos);
 					itinerario.add(promocion);
 				}
 				if (!(resultados.getString(2) == null)) {
+
+					System.out.println("ceci");
 					statementAtrac.setInt(1, resultados.getInt(2));
-					ResultSet pr = statementAtrac.executeQuery();
-					Producto atraccion = buscarProducto(resultados, productos);
+					ResultSet at = statementAtrac.executeQuery();
+					Producto atraccion = buscarProducto(at, productos);
 					itinerario.add(atraccion);
 				}
 			}
@@ -76,9 +79,9 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 			throw new MissingDataException(e);
 		}
 	}
-	
-	private Producto buscarProducto(ResultSet pr, List<Producto> productos) throws SQLException  {
-		
+
+	private Producto buscarProducto(ResultSet pr, List<Producto> productos) throws SQLException {
+
 		for (Producto producto : productos) {
 			if (producto.getNombre().equals(pr.getString(2))) {
 				return producto;
@@ -86,7 +89,6 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 		}
 		return null;
 	}
-	
 
 	public Itinerario findByNombreUsuario(String nombre) {
 		try {
@@ -107,7 +109,5 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 			throw new MissingDataException(e);
 		}
 	}
-
-	
 
 }

@@ -60,7 +60,9 @@ public class App {
 
 		ItinerarioDAO itinerarioDAO = DAOFactory.getItinerarioDAO();
 
-		System.out.println(itinerarioDAO.findAll(1, productos));
+		System.out.println(itinerarioDAO.findAll(2, productos));
+		
+		
 		
 	}
 }
