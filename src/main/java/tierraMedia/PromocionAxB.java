@@ -4,31 +4,19 @@ public class PromocionAxB extends Promocion {
 
 	private Atraccion atraccionBonificada;
 
-	public PromocionAxB(TipoAtraccion tipo, String nombre, Atraccion a1, Atraccion a2, Atraccion atraccionBonificada) {
+	public PromocionAxB(int ID, TipoAtraccion tipo, String nombre) {
+		super.ID = ID;
 		super.tipoAtraccion = tipo;
 		super.nombre = nombre;
-		super.atraccionesEnPromocion = new Atraccion[] { a1, a2, atraccionBonificada };
-		super.duracionPromocion();
-		this.atraccionBonificada = atraccionBonificada;
-		this.costoPromocion();
-	}
-
-	public PromocionAxB(TipoAtraccion tipo, String nombre, Atraccion a1, Atraccion atraccionBonificada) {
-		super.tipoAtraccion = tipo;
-		super.nombre = nombre;
-		super.atraccionesEnPromocion = new Atraccion[] { a1, atraccionBonificada };
-		super.duracionPromocion();
-		this.atraccionBonificada = atraccionBonificada;
-		this.costoPromocion();
 	}
 
 	@Override
 	protected void costoPromocion() {
 		int costo = 0;
-		for (int i = 0; i < super.atraccionesEnPromocion.length - 1; i++) {
-			costo += super.atraccionesEnPromocion[i].costo;
+		for (Atraccion atraccion : super.atraccionesEnPromocion) {
+			costo += atraccion.getCosto();
 		}
-		super.costo = costo;
+		super.costo = costo - super.atraccionesEnPromocion.get(atraccionesEnPromocion.size()-1).getCosto();
 	}
 
 	protected Atraccion getAtraccionBonificada() {

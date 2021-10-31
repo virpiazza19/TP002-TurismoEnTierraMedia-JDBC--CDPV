@@ -4,17 +4,23 @@ import java.util.List;
 
 public class Usuario {
 
+	private int id;
 	private String nombre;
 	private int presupuesto;
 	private double tiempoDisponible;
 	private TipoAtraccion atraccionPreferida;
-	protected Itinerario itinerario = new Itinerario();
+	//protected Itinerario itinerario = new Itinerario();
 
-	public Usuario(String nombre, int presupuesto, double tiempoDisponible, TipoAtraccion atraccionPreferida) {
+	public Usuario(int id, String nombre, int presupuesto, double tiempoDisponible, TipoAtraccion atraccionPreferida) {
+		this.id = id;
 		this.nombre = nombre;
 		this.presupuesto = presupuesto;
 		this.tiempoDisponible = tiempoDisponible;
 		this.atraccionPreferida = atraccionPreferida;
+	}
+	
+	public int getId() {
+		return id;
 	}
 
 	public String getNombre() {
@@ -48,5 +54,7 @@ public class Usuario {
 		return "Usuario [nombre=" + nombre + ", presupuesto=" + presupuesto + ", tiempoDisponible=" + tiempoDisponible
 				+ ", atraccionPreferida=" + atraccionPreferida + "]";
 	}
+
+
 
 }
