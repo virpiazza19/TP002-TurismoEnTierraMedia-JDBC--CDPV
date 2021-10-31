@@ -6,13 +6,13 @@ import java.util.List;
 public class Itinerario {
 	protected List<Producto> productos = new ArrayList<Producto>();
 	private Usuario usuario;
-	private Atraccion atraccion;
-	private Promocion promo;
 	
-	public Itinerario(Usuario usuario, Atraccion atraccion, Promocion promo) {
+	public Itinerario() {
+	}
+
+	public Itinerario(Usuario usuario, List<Producto> productos) {
 		this.usuario = usuario;
-		this.atraccion = atraccion;
-		this.promo = promo;
+		this.productos = productos;
 	}
 
 	public Usuario getUsuario() {
@@ -22,21 +22,9 @@ public class Itinerario {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-
-	public Atraccion getAtraccion() {
-		return atraccion;
-	}
-
-	public void setAtraccion(Atraccion atraccion) {
-		this.atraccion = atraccion;
-	}
-
-	public Promocion getPromo() {
-		return promo;
-	}
-
-	public void setPromo(Promocion promo) {
-		this.promo = promo;
+	
+	public List<Producto> getProductos() {
+		return productos;
 	}
 
 	protected void agregarProductos(Producto p) {

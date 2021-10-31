@@ -20,7 +20,7 @@ public class ParqueTierra {
 	}
 
 	private List<Usuario> generarUsuarios(String archivo) {
-		LectorUsuario lu = new LectorUsuario();
+		UsuarioDAO lu = new UsuarioDAO();
 		return lu.leerUsuarios(archivo);
 	}
 
