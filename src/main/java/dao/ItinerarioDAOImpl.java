@@ -36,27 +36,24 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 
 	public List<Producto> findAll(int idUsuario, List<Producto> productos) {
 		try {
-			String sql = "select promocion_id, atraccion_id from Itinerario WHERE usuario_id = ?";
+			String consulta = "select promocion_id, atraccion_id from Itinerario WHERE usuario_id = ?";
 			String promo = "select promocion.id, promocion.nombre from Promocion\r\n" + "INNER JOIN Itinerario on \r\n"
 					+ "Promocion.id = ?;";
 			String atracc = "select Atraccion.id, Atraccion.nombre from Atraccion\r\n" + "INNER JOIN Itinerario on \r\n"
 					+ "Atraccion.id = ?;";
 
 			Connection conn = ConexionProvider.getConnection();
-			PreparedStatement statement = conn.prepareStatement(sql);
+			PreparedStatement statement = conn.prepareStatement(consulta);
 			PreparedStatement statementPromo = conn.prepareStatement(promo);
 			PreparedStatement statementAtrac = conn.prepareStatement(atracc);
 
 			statement.setInt(1, idUsuario);
 			ResultSet resultados = statement.executeQuery();
-			
-		
+
 			List<Producto> itinerario = new ArrayList<Producto>();
 			while (resultados.next()) {
 
 				if (!(resultados.getString(1) == null)) {
-
-					System.out.println("misa");
 
 					statementPromo.setInt(1, resultados.getInt(1));
 					ResultSet pr = statementPromo.executeQuery();
@@ -66,7 +63,6 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 				}
 				if (!(resultados.getString(2) == null)) {
 
-					System.out.println("ceci");
 					statementAtrac.setInt(1, resultados.getInt(2));
 					ResultSet at = statementAtrac.executeQuery();
 					Producto atraccion = buscarProducto(at, productos);
