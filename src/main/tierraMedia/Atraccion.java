@@ -4,8 +4,7 @@ public class Atraccion extends Producto {
 
 	private int cupo;
 	
-	public Atraccion(int id, String nombre, int costo, double duracion, int cupo,TipoAtraccion tipo) {
-		super.id = id;
+	public Atraccion(String nombre, int costo, double duracion, int cupo,TipoAtraccion tipo) {
 		super.nombre = nombre;
 		super.costo = costo;
 		super.duracion = duracion;

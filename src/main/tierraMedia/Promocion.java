@@ -1,14 +1,11 @@
 package tierraMedia;
 
-import java.util.List;
-
 public abstract class Promocion extends Producto {
-	int ID;
 	TipoAtraccion tipoPreferido;
 	TipoPromocion tipoPromo;
 	int costoPromocion;
 	double duracionPromocion;
-	protected List<Atraccion> atraccionesEnPromocion;
+	protected Atraccion[] atraccionesEnPromocion;
 
 	public Promocion() {
 		super();
@@ -34,12 +31,6 @@ public abstract class Promocion extends Producto {
 		super.nombre = nombre;
 	}
 
-	public void setAtraccionesEnPromocion(List<Atraccion> atracciones) {
-		this.atraccionesEnPromocion = atracciones; 
-		this.duracionPromocion();
-		costoPromocion();
-	}
-	
 	protected void duracionPromocion() {
 		double duracion = 0;
 		for (Atraccion A : atraccionesEnPromocion) {
@@ -50,7 +41,7 @@ public abstract class Promocion extends Producto {
 
 	protected abstract void costoPromocion();
 
-	protected List<Atraccion> getAtraccionesEnPromocion() {
+	protected Atraccion[] getAtraccionesEnPromocion() {
 		return this.atraccionesEnPromocion;
 	}
 
@@ -61,41 +52,18 @@ public abstract class Promocion extends Producto {
 
 	@Override
 	public String toString() {
-		return "\nPROMOCION \n Nombre: " + super.getNombre() + " | Atracciones Incluidas: " + this.atraccionesIncluidas()
-		+ " | Duración: " + super.getDuracion() + " | Costo: " + getCosto();
-				
-	}
-	
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ID;
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Promocion other = (Promocion) obj;
-		if (ID != other.ID)
-			return false;
-		return true;
+		return "PROMOCION \n Nombre: " + super.getNombre() + " | Atracciones Incluidas: " + this.atraccionesIncluidas()
+				+ " | Costo: " + super.getCosto() + " monedas | Duración: " + super.getDuracion() + " horas | Tipo: "
+				+ super.getTipoAtraccion();
 	}
 
 	private String atraccionesIncluidas() {
 		String cadena = "";
-		for (Atraccion atraccion : atraccionesEnPromocion) {
-			cadena += atraccion.getNombre() + ". ";
+		for (int i = 0; i < atraccionesEnPromocion.length - 1; i++) {
+			cadena += atraccionesEnPromocion[i].getNombre() + ", ";
 		}
 
-		return cadena;
+		return cadena + atraccionesEnPromocion[atraccionesEnPromocion.length - 1].getNombre();
 	}
 
 	@Override
