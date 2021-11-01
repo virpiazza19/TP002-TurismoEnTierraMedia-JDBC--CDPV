@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Scanner;
 
 import comparador.ComparadorPorTipoAtraccion;
-import dao.DAOFactory;
-import dao.ItinerarioDAO;
+import daos.AtraccionDAO;
+import daos.DAOFactory;
+import daos.ItinerarioDAO;
 import excepciones.NoHayCupoException;
-import dao.AtraccionDAO;
 
 
 public class OfertadorDeProductos {

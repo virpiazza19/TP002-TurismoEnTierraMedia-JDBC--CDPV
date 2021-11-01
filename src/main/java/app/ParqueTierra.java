@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import dao.AtraccionDAO;
-import dao.DAOFactory;
-import dao.PromocionDAO;
-import dao.UsuarioDAO;
+import daos.AtraccionDAO;
+import daos.DAOFactory;
+import daos.PromocionDAO;
+import daos.UsuarioDAO;
 import excepciones.NoHayCupoException;
 import tierraMedia.Atraccion;
 import tierraMedia.OfertadorDeProductos;
