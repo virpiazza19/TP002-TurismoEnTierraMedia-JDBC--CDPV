@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
-import comparador.ComparadorPorTipoAtraccion;
 import daos.AtraccionDAO;
 import daos.DAOFactory;
 import daos.ItinerarioDAO;
