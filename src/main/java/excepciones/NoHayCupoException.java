@@ -1,4 +1,4 @@
-package tierraMedia;
+package excepciones;
 
 @SuppressWarnings("serial")
 public class NoHayCupoException extends Exception {

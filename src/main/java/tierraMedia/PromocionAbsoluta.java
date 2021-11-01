@@ -1,5 +1,7 @@
 package tierraMedia;
 
+import enums.TipoAtraccion;
+
 public class PromocionAbsoluta extends Promocion {
 
 	private int costoPaquete;

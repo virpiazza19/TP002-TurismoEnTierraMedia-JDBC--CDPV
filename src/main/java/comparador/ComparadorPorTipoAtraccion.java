@@ -1,6 +1,9 @@
-package tierraMedia;
+package comparador;
 
 import java.util.Comparator;
+
+import enums.TipoAtraccion;
+import tierraMedia.Producto;
 
 public class ComparadorPorTipoAtraccion implements Comparator<Producto> { 
 	private TipoAtraccion tipoPreferido;

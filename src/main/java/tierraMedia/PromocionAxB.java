@@ -1,5 +1,7 @@
 package tierraMedia;
 
+import enums.TipoAtraccion;
+
 public class PromocionAxB extends Promocion {
 
 	private Atraccion atraccionBonificada;

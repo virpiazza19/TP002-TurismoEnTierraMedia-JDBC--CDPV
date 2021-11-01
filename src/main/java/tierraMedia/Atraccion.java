@@ -1,10 +1,16 @@
 package tierraMedia;
 
+import java.util.Objects;
+
+import enums.TipoAtraccion;
+import excepciones.NoHayCupoException;
+
+
 public class Atraccion extends Producto {
 
 	private int cupo;
 	
-	public Atraccion(int id, String nombre, int costo, double duracion, int cupo,TipoAtraccion tipo) {
+	public Atraccion(int id, String nombre, int costo, double duracion, int cupo, TipoAtraccion tipo) {
 		super.id = id;
 		super.nombre = nombre;
 		super.costo = costo;
@@ -33,7 +39,7 @@ public class Atraccion extends Producto {
 
 	@Override
 	public String toString() {
-		return "ATRACCION \n Nombre: " + super.getNombre() + " | Costo: " + super.getCosto() +" Monedas | Duración: " + super.getDuracion() + " horas | Tipo: " + super.getTipoAtraccion(); 
+		return "ATRACCION \n Nombre: " + super.getNombre() + " | Costo: " + super.getCosto() +" Monedas | Duraciï¿½n: " + super.getDuracion() + " horas | Tipo: " + super.getTipoAtraccion(); 
 	}
 	
 
@@ -44,5 +50,23 @@ public class Atraccion extends Producto {
 		}
 		
 		return this.equals(p);
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, nombre, costo, duracion, cupo);
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Atraccion other = (Atraccion) obj;
+		return cupo == other.cupo && Double.doubleToLongBits(duracion) == Double.doubleToLongBits(other.duracion)
+				&& id == other.id && Objects.equals(nombre, other.nombre) && costo == other.costo;
 	}
 }

@@ -1,6 +1,9 @@
 package tierraMedia;
 
 import java.util.List;
+import java.util.Objects;
+
+import enums.TipoAtraccion;
 
 public class Usuario {
 
@@ -9,7 +12,7 @@ public class Usuario {
 	private int presupuesto;
 	private double tiempoDisponible;
 	private TipoAtraccion atraccionPreferida;
-	//protected Itinerario itinerario = new Itinerario();
+	protected Itinerario itinerario;
 
 	public Usuario(int id, String nombre, int presupuesto, double tiempoDisponible, TipoAtraccion atraccionPreferida) {
 		this.id = id;
@@ -17,6 +20,7 @@ public class Usuario {
 		this.presupuesto = presupuesto;
 		this.tiempoDisponible = tiempoDisponible;
 		this.atraccionPreferida = atraccionPreferida;
+		this.itinerario = new Itinerario(this.id);
 	}
 	
 	public int getId() {
@@ -42,6 +46,10 @@ public class Usuario {
 	public List<Producto> getProductosEnItinerario() {
 		return this.itinerario.productos;
 	}
+	
+	public void setItinerario(Itinerario itinerario) {
+		this.itinerario = itinerario;
+	}
 
 	public void agregarProductosAlItinerario(Producto producto) {
 		itinerario.agregarProductos(producto);
@@ -55,6 +63,25 @@ public class Usuario {
 				+ ", atraccionPreferida=" + atraccionPreferida + "]";
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, nombre, presupuesto, tiempoDisponible, atraccionPreferida, itinerario);
+	}
 
-
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		return id == other.id
+				&& Objects.equals(nombre, other.nombre)
+				&& Objects.equals(presupuesto, other.presupuesto) 
+				&& Objects.equals(tiempoDisponible, other.tiempoDisponible)
+				&& Objects.equals(itinerario, other.itinerario) 
+				&& Objects.equals(atraccionPreferida, other.atraccionPreferida);
+	}	
 }

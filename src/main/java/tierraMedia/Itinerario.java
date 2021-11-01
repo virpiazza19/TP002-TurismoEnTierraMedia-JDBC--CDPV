@@ -15,6 +15,10 @@ public class Itinerario {
 		this.productos = productos;
 	}
 
+	public Itinerario(int id) {
+
+	}
+
 	public Usuario getUsuario() {
 		return usuario;
 	}

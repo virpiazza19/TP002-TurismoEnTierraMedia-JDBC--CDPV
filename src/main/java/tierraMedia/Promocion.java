@@ -2,6 +2,10 @@ package tierraMedia;
 
 import java.util.List;
 
+import enums.TipoAtraccion;
+import enums.TipoPromocion;
+import excepciones.NoHayCupoException;
+
 public abstract class Promocion extends Producto {
 	int ID;
 	TipoAtraccion tipoPreferido;
@@ -62,7 +66,7 @@ public abstract class Promocion extends Producto {
 	@Override
 	public String toString() {
 		return "\nPROMOCION \n Nombre: " + super.getNombre() + " | Atracciones Incluidas: " + this.atraccionesIncluidas()
-		+ " | Duración: " + super.getDuracion() + " | Costo: " + getCosto();
+		+ " | Duraciï¿½n: " + super.getDuracion() + " | Costo: " + getCosto();
 				
 	}
 	

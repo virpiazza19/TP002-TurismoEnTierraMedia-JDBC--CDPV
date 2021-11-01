@@ -1,4 +1,4 @@
-package tierraMedia;
+package enums;
 
 public enum TipoPromocion {
 	PORCENTUAL, ABOSULTA, AxB;

@@ -3,6 +3,9 @@ package tierraMedia;
 import java.util.ArrayList;
 import java.util.List;
 
+import enums.TipoAtraccion;
+import excepciones.NoHayCupoException;
+
 public abstract class Producto {
 
 	protected List<Atraccion> atracciones = new ArrayList<Atraccion>();

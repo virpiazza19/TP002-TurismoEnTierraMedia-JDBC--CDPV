@@ -1,5 +1,7 @@
 package tierraMedia;
 
+import enums.TipoAtraccion;
+
 public class PromocionPorcentual extends Promocion {
 
 	private static final int CIEN = 100;

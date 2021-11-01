@@ -1,4 +1,4 @@
-package tierraMedia;
+package enums;
 
 public enum TipoAtraccion {
 	AVENTURA, PAISAJE, DEGUSTACION;

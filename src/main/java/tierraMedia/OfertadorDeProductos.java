@@ -1,13 +1,23 @@
 package tierraMedia;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
-public class OfertadorDeProductos {
+import comparador.ComparadorPorTipoAtraccion;
+import dao.DAOFactory;
+import dao.ItinerarioDAO;
+import excepciones.NoHayCupoException;
+import dao.AtraccionDAO;
 
-	public void sugerirProductos(List<Usuario> usuarios, List<Producto> productos) throws NoHayCupoException {
+
+public class OfertadorDeProductos {
+	
+		public void sugerirProductos(List<Usuario> usuarios, List<Producto> productos) throws NoHayCupoException {
+		ItinerarioDAO itinerarioGeneral = DAOFactory.getItinerarioDAO();
+		
 		for (Usuario usuario : usuarios) {
 			productos.sort(new ComparadorPorTipoAtraccion(usuario.getAtraccionPreferida()));
 
@@ -32,7 +42,7 @@ public class OfertadorDeProductos {
 					System.out.println(
 							"\n--------------------------------------------------------------------------------------------------\n");
 					System.out.println("Usuario: " + usuario.getNombre() + "  Presupuesto: " + usuario.getPresupuesto()
-							+ "  Tiempo Disponible: " + usuario.getTiempoDisponible() + "  Tipo de Atracción Favorito: "
+							+ "  Tiempo Disponible: " + usuario.getTiempoDisponible() + "  Tipo de Atracciï¿½n Favorito: "
 							+ usuario.getAtraccionPreferida());
 					System.out.println(
 							"\n--------------------------------------------------------------------------------------------------\n");
@@ -43,18 +53,23 @@ public class OfertadorDeProductos {
 					}
 				}
 			}
+		//	AtraccionDAO.update(atraccion);
 			System.out.println(
 					"\n--------------------------------------------------------------------------------------------------\n");
 			System.out.println("\t\t\t\t RESUMEN DE ITINERARIO\n");
 			System.out.println(usuario.itinerario);
 			System.out.println("\t\t\t\t COSTO TOTAL: " + usuario.itinerario.costoTotal() + " monedas.");
 			System.out.println("\t\t\t\t DURACION TOTAL: " + usuario.itinerario.duracionTotal() + " horas.");
-	//		try {
-	//			EscritorDeArchivosDeUsuario.crearArchivoDeSalida(usuario,
-	//					"archivosDeSalida/" + usuario.getNombre() + ".csv");
-	//		} catch (IOException e) {
-	//			e.printStackTrace();
-	//		}
+		//	try {
+		//	for (Usuario us : usuarios) {
+		//		for(Producto iti : itinerario) {
+		//			itinerarioGeneral.insert(usuario.getId(), producto.getId());
+		//		}
+		//	}
+		//		itinerarioGeneral.insert(usuario, producto);
+		//	} catch (IOException e) {
+		//		e.printStackTrace();
+		//	}
 		}
 		System.out.println("\n\n\n\t\t\t\t FIN PROGRAMA");
 	}
@@ -63,7 +78,7 @@ public class OfertadorDeProductos {
 	private String decisionUsuario() {
 		Scanner sc = new Scanner(System.in);
 		String opcion = "";
-		System.out.println("\n\n¿Desea añadir la sugerencia a su ITINERARIO?");
+		System.out.println("\n\nÂ¿Desea aÃ±adir la sugerencia a su ITINERARIO?");
 		System.out.print("\nIngrese SI o No: ");
 		opcion = sc.next();
 		System.out.println();
