@@ -3,18 +3,18 @@ package dao;
 public class DAOFactory {
 
 	public static UsuarioDAO getUsuarioDAO() {
-		return new UsuarioDAOImpl();
+		return new UsuarioDAO();
 	}
 
 	public static AtraccionDAO getAtraccionDAO() {
-		return new AtraccionDAOImpl();
+		return new AtraccionDAO();
 	}
 	
 	public static PromocionDAO getPromocionDAO() {
-		return new PromocionDAOImpl();
+		return new PromocionDAO();
 	}
 	
 	public static ItinerarioDAO getItinerarioDAO() {
-		return new ItinerarioDAOImpl();
+		return new ItinerarioDAO();
 	}
 }
