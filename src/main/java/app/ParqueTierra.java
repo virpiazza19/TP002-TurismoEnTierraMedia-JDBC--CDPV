@@ -26,20 +26,20 @@ public class ParqueTierra {
 
 	public ParqueTierra (UsuarioDAO usuario, AtraccionDAO atraccion, PromocionDAO promocion) {
 		this.usuarios = generarUsuarios();
-		this.productos = generarProductos(atraccion, promocion);
+		this.productos = generarProductos();
 	}
 	
 	public void ofrecerServicios (List<Usuario> usuarios, List<Producto> productos) throws NoHayCupoException  {
 		ofertador.sugerirProductos(this.usuarios, this.productos);
 	}
 
-	private List<Usuario> generarUsuarios() {
+	List<Usuario> generarUsuarios() {
 		UsuarioDAO usuarioDAO = DAOFactory.getUsuarioDAO();
 		usuarios = usuarioDAO.findAll();
 		return usuarios;
 	}
 
-	private List<Producto> generarProductos(AtraccionDAO atraccion, PromocionDAO promocion) {
+	List<Producto> generarProductos() {
 		AtraccionDAO atraccionDAO = DAOFactory.getAtraccionDAO();
 		PromocionDAO promocionDAO = DAOFactory.getPromocionDAO();
 		List<Atraccion> a = atraccionDAO.findAll();
