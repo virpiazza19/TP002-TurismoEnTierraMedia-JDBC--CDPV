@@ -9,7 +9,7 @@ public class Usuario {
 	private int presupuesto;
 	private double tiempoDisponible;
 	private TipoAtraccion atraccionPreferida;
-	protected Itinerario itinerario = new Itinerario();
+	//protected Itinerario itinerario = new Itinerario();
 
 	public Usuario(int id, String nombre, int presupuesto, double tiempoDisponible, TipoAtraccion atraccionPreferida) {
 		this.id = id;
