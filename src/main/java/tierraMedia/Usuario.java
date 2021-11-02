@@ -59,8 +59,8 @@ public class Usuario {
 
 	@Override
 	public String toString() {
-		return "Usuario [nombre=" + nombre + ", presupuesto=" + presupuesto + ", tiempoDisponible=" + tiempoDisponible
-				+ ", atraccionPreferida=" + atraccionPreferida + "]";
+		return "\nUSUARIO \n Nombre: " + nombre + " | Presupuesto: " + presupuesto + " | Tiempo Disponible: " + tiempoDisponible
+				+ "hs. | Atraccion Preferida: " + atraccionPreferida;
 	}
 
 	@Override

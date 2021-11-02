@@ -66,7 +66,7 @@ public abstract class Promocion extends Producto {
 	@Override
 	public String toString() {
 		return "\nPROMOCION \n Nombre: " + super.getNombre() + " | Atracciones Incluidas: " + this.atraccionesIncluidas()
-		+ " | Duraci�n: " + super.getDuracion() + " | Costo: " + getCosto();
+		+ " | Duración: " + super.getDuracion() + "hs. | Costo: " + getCosto();
 				
 	}
 	

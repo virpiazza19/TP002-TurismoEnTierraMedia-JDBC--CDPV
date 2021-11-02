@@ -39,7 +39,7 @@ public class Atraccion extends Producto {
 
 	@Override
 	public String toString() {
-		return "ATRACCION \n Nombre: " + super.getNombre() + " | Costo: " + super.getCosto() +" Monedas | Duraci�n: " + super.getDuracion() + " horas | Tipo: " + super.getTipoAtraccion(); 
+		return "\nATRACCION \n Nombre: " + super.getNombre() + " | Costo: " + super.getCosto() +" monedas | Duración: " + super.getDuracion() + " hs. | Tipo: " + super.getTipoAtraccion(); 
 	}
 	
 

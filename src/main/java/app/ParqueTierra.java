@@ -33,13 +33,13 @@ public class ParqueTierra {
 		ofertador.sugerirProductos(this.usuarios, this.productos);
 	}
 
-	List<Usuario> generarUsuarios() {
+	public List<Usuario> generarUsuarios() {
 		UsuarioDAO usuarioDAO = DAOFactory.getUsuarioDAO();
 		usuarios = usuarioDAO.findAll();
 		return usuarios;
 	}
 
-	List<Producto> generarProductos() {
+	public List<Producto> generarProductos() {
 		AtraccionDAO atraccionDAO = DAOFactory.getAtraccionDAO();
 		PromocionDAO promocionDAO = DAOFactory.getPromocionDAO();
 		List<Atraccion> a = atraccionDAO.findAll();
