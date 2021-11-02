@@ -22,7 +22,7 @@ public class OfertadorDeProductos {
 
 			System.out.println(
 					"\n--------------------------------------------------------------------------------------------------\n");
-			System.out.println("\t\t\t\t NUEVO USUARIO");
+			System.out.println("\t\t\t\t ¡BIENVENIDO NUEVO USUARIO!");
 
 			for (Producto producto : productos) {
 
@@ -41,7 +41,7 @@ public class OfertadorDeProductos {
 					System.out.println(
 							"\n--------------------------------------------------------------------------------------------------\n");
 					System.out.println("Usuario: " + usuario.getNombre() + "  Presupuesto: " + usuario.getPresupuesto()
-							+ "  Tiempo Disponible: " + usuario.getTiempoDisponible() + "  Tipo de Atracci�n Favorito: "
+							+ "  Tiempo Disponible: " + usuario.getTiempoDisponible() + "  Tipo de Atracción Favorito: "
 							+ usuario.getAtraccionPreferida());
 					System.out.println(
 							"\n--------------------------------------------------------------------------------------------------\n");
