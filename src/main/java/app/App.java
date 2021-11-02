@@ -10,6 +10,5 @@ public class App {
 		System.out.println(parque.generarUsuarios());
 		System.out.println(parque.generarProductos());
 		parque.ofrecerServicios (parque.usuarios, parque.productos);
-		
 	}
 }
