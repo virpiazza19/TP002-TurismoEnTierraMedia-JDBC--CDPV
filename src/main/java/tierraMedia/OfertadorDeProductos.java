@@ -15,11 +15,11 @@ import excepciones.NoHayCupoException;
 public class OfertadorDeProductos {
 	
 		public void sugerirProductos(List<Usuario> usuarios, List<Producto> productos) throws NoHayCupoException {
-		ItinerarioDAO itinerarioGeneral = DAOFactory.getItinerarioDAO();
+		// ItinerarioDAO itinerarioGeneral = DAOFactory.getItinerarioDAO();
 		
 		for (Usuario usuario : usuarios) {
 			productos.sort(new ComparadorPorTipoAtraccion(usuario.getAtraccionPreferida()));
-
+			// ACA DEBERÍA CHEQUEAR SI EL USUARIO YA ESTA DENTRO DE ITINERARIO, SI ESTA EL MENSAJE DEBERÍA SER: ¡Bienvenido nuevamente!
 			System.out.println(
 					"\n--------------------------------------------------------------------------------------------------\n");
 			System.out.println("\t\t\t\t ¡BIENVENIDO NUEVO USUARIO!");
@@ -53,6 +53,7 @@ public class OfertadorDeProductos {
 				}
 			}
 		//	AtraccionDAO.update(atraccion);
+		//  UsuarioDAO.update(usuario);
 			System.out.println(
 					"\n--------------------------------------------------------------------------------------------------\n");
 			System.out.println("\t\t\t\t RESUMEN DE ITINERARIO\n");
