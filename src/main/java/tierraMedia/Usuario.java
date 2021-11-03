@@ -1,5 +1,6 @@
 package tierraMedia;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,6 +14,7 @@ public class Usuario {
 	private double tiempoDisponible;
 	private TipoAtraccion atraccionPreferida;
 	protected Itinerario itinerario;
+	protected List<Producto> nuevosProductos;
 
 	public Usuario(int id, String nombre, int presupuesto, double tiempoDisponible, TipoAtraccion atraccionPreferida) {
 		this.id = id;
@@ -20,7 +22,7 @@ public class Usuario {
 		this.presupuesto = presupuesto;
 		this.tiempoDisponible = tiempoDisponible;
 		this.atraccionPreferida = atraccionPreferida;
-		this.itinerario = new Itinerario(this.id);
+		nuevosProductos = new ArrayList<Producto>();
 	}
 	
 	public int getId() {
@@ -47,14 +49,22 @@ public class Usuario {
 		return this.itinerario.productos;
 	}
 	
-	public void setItinerario(Itinerario itinerario) {
-		this.itinerario = itinerario;
+	public void setItinerario(List<Producto> productos) {
+		this.itinerario = new Itinerario(productos);
 	}
 
 	public void agregarProductosAlItinerario(Producto producto) {
 		itinerario.agregarProductos(producto);
 		this.presupuesto -= producto.getCosto();
 		this.tiempoDisponible -= producto.getDuracion();
+	}
+	
+	public void agregarProductoNuevo(Producto producto) {
+		this.nuevosProductos.add(producto);
+	}
+	
+	public List<Producto> getNuevosProductos() {
+		return this.nuevosProductos;
 	}
 
 	@Override

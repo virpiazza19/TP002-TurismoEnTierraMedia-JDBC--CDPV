@@ -15,12 +15,13 @@ public class UsuarioDAO implements GenericDAO<Usuario> {
 	
 	public int update(Usuario usuario) {
 		try {
-			String sql = "UPDATE USUARIO SET PRESUPUESTO = ?, TIEMPO_DISPONIBLE = ? WHERE NOMBRE = ?";
+			String sql = "UPDATE USUARIO SET PRESUPUESTO = ?, TIEMPO_DISPONIBLE = ? WHERE ID = ?";
 			Connection conn = ConexionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setInt(1, usuario.getPresupuesto());
 			statement.setDouble(2, usuario.getTiempoDisponible());
+			statement.setInt(3, usuario.getId());
 			int rows = statement.executeUpdate();
 
 			return rows;

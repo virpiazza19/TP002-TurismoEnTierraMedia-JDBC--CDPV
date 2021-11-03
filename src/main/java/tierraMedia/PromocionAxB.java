@@ -7,7 +7,7 @@ public class PromocionAxB extends Promocion {
 	private Atraccion atraccionBonificada;
 
 	public PromocionAxB(int ID, TipoAtraccion tipo, String nombre) {
-		super.ID = ID;
+		super.id = ID;
 		super.tipoAtraccion = tipo;
 		super.nombre = nombre;
 	}

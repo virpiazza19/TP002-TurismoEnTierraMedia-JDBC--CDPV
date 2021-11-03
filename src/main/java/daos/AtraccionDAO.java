@@ -16,11 +16,12 @@ public class AtraccionDAO implements GenericDAO<Atraccion>{
 	
 	public int update(Atraccion atraccion) {
 		try {
-			String sql = "UPDATE ATRACCION SET CUPO= ? WHERE NOMBRE = ?";
+			String sql = "UPDATE ATRACCION SET CUPO= ? WHERE ID = ?";
 			Connection conn = ConexionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setInt(1, atraccion.getCupo());
+			statement.setInt(2, atraccion.getId());
 			int rows = statement.executeUpdate();
 
 			return rows;

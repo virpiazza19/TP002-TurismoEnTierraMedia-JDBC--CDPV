@@ -16,6 +16,7 @@ import tierraMedia.Usuario;
 public class ItinerarioDAO {
 
 	public void insert(Usuario usuario, Producto producto) {
+
 		try {
 			if (producto.esPromo()) {
 				String sql = "INSERT INTO ITINERARIO (USUARIO_ID, PROMOCION_ID) VALUES (?, ?)";
@@ -24,6 +25,7 @@ public class ItinerarioDAO {
 				PreparedStatement statement = conn.prepareStatement(sql);
 				statement.setInt(1, usuario.getId());
 				statement.setInt(2, producto.getId());
+				statement.executeUpdate();
 			} else {
 				String sql = "INSERT INTO ITINERARIO (USUARIO_ID, ATRACCION_ID)" + "VALUES(?, ?)";
 				Connection conn = ConexionProvider.getConnection();

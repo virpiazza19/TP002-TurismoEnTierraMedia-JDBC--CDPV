@@ -1,32 +1,17 @@
 package tierraMedia;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Itinerario {
-	protected List<Producto> productos = new ArrayList<Producto>();
-	private Usuario usuario;
-	
-	public Itinerario() {
-	}
+	protected List<Producto> productos;
 
-	public Itinerario(Usuario usuario, List<Producto> productos) {
-		this.usuario = usuario;
+	public Itinerario(List<Producto> productos) {
+
 		this.productos = productos;
 	}
 
-	public Itinerario(int id) {
+	public Itinerario() {};
 
-	}
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-	
 	public List<Producto> getProductos() {
 		return productos;
 	}

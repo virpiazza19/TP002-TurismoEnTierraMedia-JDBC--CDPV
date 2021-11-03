@@ -8,7 +8,7 @@ public class PromocionPorcentual extends Promocion {
 	private double descuento;
 
 	public PromocionPorcentual(int ID, TipoAtraccion tipo, String nombre, double descuento) {
-		super.ID = ID;
+		super.id = ID;
 		super.tipoAtraccion = tipo;
 		super.nombre = nombre;
 		this.descuento = descuento / CIEN;

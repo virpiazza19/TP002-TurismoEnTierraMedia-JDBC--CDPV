@@ -9,24 +9,32 @@ import java.util.Scanner;
 import daos.AtraccionDAO;
 import daos.DAOFactory;
 import daos.ItinerarioDAO;
+import daos.UsuarioDAO;
 import excepciones.NoHayCupoException;
 
-
 public class OfertadorDeProductos {
-	
-		public void sugerirProductos(List<Usuario> usuarios, List<Producto> productos) throws NoHayCupoException {
-		// ItinerarioDAO itinerarioGeneral = DAOFactory.getItinerarioDAO();
-		
+
+	public void sugerirProductos(List<Usuario> usuarios, List<Producto> productos) throws NoHayCupoException {
+
 		for (Usuario usuario : usuarios) {
+
+			ItinerarioDAO itinerarioGeneral = DAOFactory.getItinerarioDAO();
+
+			// Recuperamos el itinerario de un usuario en la BD
+			usuario.setItinerario(itinerarioGeneral.findAll(usuario.getId(), productos));
+
+			System.out.println(usuario.getProductosEnItinerario());
+
 			productos.sort(new ComparadorPorTipoAtraccion(usuario.getAtraccionPreferida()));
-			// ACA DEBERÍA CHEQUEAR SI EL USUARIO YA ESTA DENTRO DE ITINERARIO, SI ESTA EL MENSAJE DEBERÍA SER: ¡Bienvenido nuevamente!
+			// ACA DEBERÃ�A CHEQUEAR SI EL USUARIO YA ESTA DENTRO DE ITINERARIO, SI ESTA EL
+			// MENSAJE DEBERÃ�A SER: Â¡Bienvenido nuevamente!
 			System.out.println(
 					"\n--------------------------------------------------------------------------------------------------\n");
-			System.out.println("\t\t\t\t ¡BIENVENIDO NUEVO USUARIO!");
+			System.out.println("\t\t\t\t Â¡BIENVENIDO NUEVO USUARIO!");
 
 			for (Producto producto : productos) {
-
 				List<Producto> itinerario = usuario.getProductosEnItinerario();
+
 				boolean contiene = false;
 				Iterator<Producto> iterador = itinerario.iterator();
 				while (!contiene && iterador.hasNext()) {
@@ -41,35 +49,31 @@ public class OfertadorDeProductos {
 					System.out.println(
 							"\n--------------------------------------------------------------------------------------------------\n");
 					System.out.println("Usuario: " + usuario.getNombre() + "  Presupuesto: " + usuario.getPresupuesto()
-							+ "  Tiempo Disponible: " + usuario.getTiempoDisponible() + "  Tipo de Atracción Favorito: "
-							+ usuario.getAtraccionPreferida());
+							+ "  Tiempo Disponible: " + usuario.getTiempoDisponible()
+							+ "  Tipo de AtracciÃ³n Favorito: " + usuario.getAtraccionPreferida());
 					System.out.println(
 							"\n--------------------------------------------------------------------------------------------------\n");
 					System.out.println(producto);
 					if (this.decisionUsuario().toUpperCase().equals("SI")) {
 						usuario.agregarProductosAlItinerario(producto);
+						usuario.agregarProductoNuevo(producto);
 						producto.disminuirCupo();
 					}
 				}
 			}
-		//	AtraccionDAO.update(atraccion);
-		//  UsuarioDAO.update(usuario);
+			UsuarioDAO usuarioDAO = new UsuarioDAO();
+			// AtraccionDAO.update(atraccion);
+			usuarioDAO.update(usuario);
 			System.out.println(
 					"\n--------------------------------------------------------------------------------------------------\n");
 			System.out.println("\t\t\t\t RESUMEN DE ITINERARIO\n");
 			System.out.println(usuario.itinerario);
 			System.out.println("\t\t\t\t COSTO TOTAL: " + usuario.itinerario.costoTotal() + " monedas.");
 			System.out.println("\t\t\t\t DURACION TOTAL: " + usuario.itinerario.duracionTotal() + " horas.");
-		//	try {
-		//	for (Usuario us : usuarios) {
-		//		for(Producto iti : itinerario) {
-		//			itinerarioGeneral.insert(usuario.getId(), producto.getId());
-		//		}
-		//	}
-		//		itinerarioGeneral.insert(usuario, producto);
-		//	} catch (IOException e) {
-		//		e.printStackTrace();
-		//	}
+
+			for (Producto producto : usuario.getNuevosProductos()) {
+				itinerarioGeneral.insert(usuario, producto);
+			}
 		}
 		System.out.println("\n\n\n\t\t\t\t FIN PROGRAMA");
 	}
@@ -78,7 +82,7 @@ public class OfertadorDeProductos {
 	private String decisionUsuario() {
 		Scanner sc = new Scanner(System.in);
 		String opcion = "";
-		System.out.println("\n\n¿Desea añadir la sugerencia a su ITINERARIO?");
+		System.out.println("\n\nÂ¿Desea aÃ±adir la sugerencia a su ITINERARIO?");
 		System.out.print("\nIngrese SI o No: ");
 		opcion = sc.next();
 		System.out.println();

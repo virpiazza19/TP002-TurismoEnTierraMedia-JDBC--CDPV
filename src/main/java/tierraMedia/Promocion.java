@@ -7,7 +7,7 @@ import enums.TipoPromocion;
 import excepciones.NoHayCupoException;
 
 public abstract class Promocion extends Producto {
-	int ID;
+	//int ID;
 	TipoAtraccion tipoPreferido;
 	TipoPromocion tipoPromo;
 	int costoPromocion;
@@ -75,7 +75,7 @@ public abstract class Promocion extends Producto {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ID;
+		result = prime * result + super.id;
 		return result;
 	}
 
@@ -88,7 +88,7 @@ public abstract class Promocion extends Producto {
 		if (getClass() != obj.getClass())
 			return false;
 		Promocion other = (Promocion) obj;
-		if (ID != other.ID)
+		if (super.getId() != other.getId())
 			return false;
 		return true;
 	}
