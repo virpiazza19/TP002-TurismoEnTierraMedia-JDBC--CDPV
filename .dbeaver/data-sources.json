@@ -1,0 +1,30 @@
+{
+	"folders": {},
+	"connections": {
+		"sqlite_jdbc-17ce38a28f2-6826d97395a52460": {
+			"provider": "sqlite",
+			"driver": "sqlite_jdbc",
+			"name": "BaseDeDatosTierraMedia.db",
+			"save-password": true,
+			"read-only": false,
+			"configuration": {
+				"database": "C:\\Users\\Misael\\Desktop\\TP2 ARGENTINA PROGRAMA\\TP2-BaseDeDatos-CDPV\\BaseDeDatosTierraMedia.db",
+				"url": "jdbc:sqlite:C:\\Users\\Misael\\Desktop\\TP2 ARGENTINA PROGRAMA\\TP2-BaseDeDatos-CDPV\\BaseDeDatosTierraMedia.db",
+				"type": "dev",
+				"auth-model": "native",
+				"handlers": {}
+			}
+		}
+	},
+	"connection-types": {
+		"dev": {
+			"name": "Development",
+			"color": "255,255,255",
+			"description": "Regular development database",
+			"auto-commit": true,
+			"confirm-execute": false,
+			"confirm-data-change": false,
+			"auto-close-transactions": false
+		}
+	}
+}
