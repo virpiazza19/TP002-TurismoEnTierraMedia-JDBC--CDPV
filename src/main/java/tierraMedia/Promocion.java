@@ -7,7 +7,6 @@ import enums.TipoPromocion;
 import excepciones.NoHayCupoException;
 
 public abstract class Promocion extends Producto {
-	//int ID;
 	TipoAtraccion tipoPreferido;
 	TipoPromocion tipoPromo;
 	int costoPromocion;

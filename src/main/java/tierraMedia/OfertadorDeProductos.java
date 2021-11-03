@@ -1,7 +1,5 @@
 package tierraMedia;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
@@ -30,7 +28,7 @@ public class OfertadorDeProductos {
 			// MENSAJE DEBERÃ�A SER: Â¡Bienvenido nuevamente!
 			System.out.println(
 					"\n--------------------------------------------------------------------------------------------------\n");
-			System.out.println("\t\t\t\t Â¡BIENVENIDO NUEVO USUARIO!");
+			System.out.println("\t\t\t\t ¡BIENVENIDO!");
 
 			for (Producto producto : productos) {
 				List<Producto> itinerario = usuario.getProductosEnItinerario();
@@ -50,7 +48,7 @@ public class OfertadorDeProductos {
 							"\n--------------------------------------------------------------------------------------------------\n");
 					System.out.println("Usuario: " + usuario.getNombre() + "  Presupuesto: " + usuario.getPresupuesto()
 							+ "  Tiempo Disponible: " + usuario.getTiempoDisponible()
-							+ "  Tipo de AtracciÃ³n Favorito: " + usuario.getAtraccionPreferida());
+							+ "  Tipo de Atracción Favorito: " + usuario.getAtraccionPreferida());
 					System.out.println(
 							"\n--------------------------------------------------------------------------------------------------\n");
 					System.out.println(producto);
@@ -82,8 +80,8 @@ public class OfertadorDeProductos {
 	private String decisionUsuario() {
 		Scanner sc = new Scanner(System.in);
 		String opcion = "";
-		System.out.println("\n\nÂ¿Desea aÃ±adir la sugerencia a su ITINERARIO?");
-		System.out.print("\nIngrese SI o No: ");
+		System.out.println("\n\n¿Desea añadir la sugerencia a su ITINERARIO?");
+		System.out.print("\nIngrese SI o NO: ");
 		opcion = sc.next();
 		System.out.println();
 		while (!opcion.toUpperCase().equals("SI") && !opcion.toUpperCase().equals("NO")) {
