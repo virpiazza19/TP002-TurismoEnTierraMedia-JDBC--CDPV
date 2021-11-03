@@ -16,6 +16,12 @@ import tierraMedia.Promocion;
 import tierraMedia.Usuario;
 
 public class ParqueTierra {
+	
+	public void comenzarPrograma() throws NoHayCupoException {
+		generarUsuarios();
+		generarProductos();
+		ofrecerServicios (usuarios, productos);
+	}
 
 	List<Usuario> usuarios = new LinkedList<Usuario>();
 	List<Producto> productos = new ArrayList<Producto>();

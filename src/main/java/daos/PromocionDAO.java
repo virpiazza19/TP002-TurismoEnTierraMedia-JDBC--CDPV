@@ -110,4 +110,16 @@ public class PromocionDAO {
 			mapP.put(promo, atr);
 		}
 	}
+
+	public int update(Promocion promocion) {
+		
+		List<Atraccion> atraccionesIncluidas = promocion.getAtraccionesEnPromocion();
+		int rows = 0;
+		AtraccionDAO atraccionDao = new AtraccionDAO();
+		
+		for (Atraccion atraccion : atraccionesIncluidas) {
+			rows = atraccionDao.update(atraccion);
+		}
+		return rows;
+	}
 }

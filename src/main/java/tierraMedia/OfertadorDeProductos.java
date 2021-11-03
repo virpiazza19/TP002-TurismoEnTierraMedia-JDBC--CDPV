@@ -7,6 +7,7 @@ import java.util.Scanner;
 import daos.AtraccionDAO;
 import daos.DAOFactory;
 import daos.ItinerarioDAO;
+import daos.PromocionDAO;
 import daos.UsuarioDAO;
 import excepciones.NoHayCupoException;
 
@@ -18,17 +19,17 @@ public class OfertadorDeProductos {
 
 			ItinerarioDAO itinerarioGeneral = DAOFactory.getItinerarioDAO();
 
-			// Recuperamos el itinerario de un usuario en la BD
 			usuario.setItinerario(itinerarioGeneral.findAll(usuario.getId(), productos));
-
-			System.out.println(usuario.getProductosEnItinerario());
-
+			if (usuario.itinerario.productos.isEmpty()) {
+				System.out.println(
+						"\n--------------------------------------------------------------------------------------------------\n");
+				System.out.println("\t\t\t\t ¡Bienvenido " + usuario.getNombre() + "!");
+			} else {
+				System.out.println("\t\t\t\t ¡Bienvenido nuevamente " + usuario.getNombre() + "!");
+				System.out.println("Usted compró anteriormente los siguientes productos: " + "\n "
+						+ usuario.getProductosEnItinerario());
+			}
 			productos.sort(new ComparadorPorTipoAtraccion(usuario.getAtraccionPreferida()));
-			// ACA DEBERÃ�A CHEQUEAR SI EL USUARIO YA ESTA DENTRO DE ITINERARIO, SI ESTA EL
-			// MENSAJE DEBERÃ�A SER: Â¡Bienvenido nuevamente!
-			System.out.println(
-					"\n--------------------------------------------------------------------------------------------------\n");
-			System.out.println("\t\t\t\t ¡BIENVENIDO!");
 
 			for (Producto producto : productos) {
 				List<Producto> itinerario = usuario.getProductosEnItinerario();
@@ -47,8 +48,8 @@ public class OfertadorDeProductos {
 					System.out.println(
 							"\n--------------------------------------------------------------------------------------------------\n");
 					System.out.println("Usuario: " + usuario.getNombre() + "  Presupuesto: " + usuario.getPresupuesto()
-							+ "  Tiempo Disponible: " + usuario.getTiempoDisponible()
-							+ "  Tipo de Atracción Favorito: " + usuario.getAtraccionPreferida());
+							+ "  Tiempo Disponible: " + usuario.getTiempoDisponible() + "  Tipo de Atracción Favorito: "
+							+ usuario.getAtraccionPreferida());
 					System.out.println(
 							"\n--------------------------------------------------------------------------------------------------\n");
 					System.out.println(producto);
@@ -57,11 +58,11 @@ public class OfertadorDeProductos {
 						usuario.agregarProductoNuevo(producto);
 						producto.disminuirCupo();
 					}
-				}
+				} 
 			}
 			UsuarioDAO usuarioDAO = new UsuarioDAO();
-			// AtraccionDAO.update(atraccion);
 			usuarioDAO.update(usuario);
+
 			System.out.println(
 					"\n--------------------------------------------------------------------------------------------------\n");
 			System.out.println("\t\t\t\t RESUMEN DE ITINERARIO\n");
@@ -70,6 +71,7 @@ public class OfertadorDeProductos {
 			System.out.println("\t\t\t\t DURACION TOTAL: " + usuario.itinerario.duracionTotal() + " horas.");
 
 			for (Producto producto : usuario.getNuevosProductos()) {
+				actualizarProducto(producto);
 				itinerarioGeneral.insert(usuario, producto);
 			}
 		}
@@ -85,7 +87,7 @@ public class OfertadorDeProductos {
 		opcion = sc.next();
 		System.out.println();
 		while (!opcion.toUpperCase().equals("SI") && !opcion.toUpperCase().equals("NO")) {
-			System.out.println("Ingrese SI o No: ");
+			System.out.println("Ingrese SI o NO: ");
 			opcion = sc.next();
 			System.out.println();
 		}
@@ -97,5 +99,15 @@ public class OfertadorDeProductos {
 			return false;
 		}
 		return true;
+	}
+
+	public void actualizarProducto(Producto producto) {
+		if (producto.esPromo()) {
+			PromocionDAO promoDAO = DAOFactory.getPromocionDAO();
+			promoDAO.update((Promocion) producto);
+		} else {
+			AtraccionDAO atraccionDao = DAOFactory.getAtraccionDAO();
+			atraccionDao.update((Atraccion) producto);
+		}
 	}
 }

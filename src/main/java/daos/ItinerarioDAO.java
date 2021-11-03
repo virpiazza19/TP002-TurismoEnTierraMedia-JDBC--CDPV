@@ -9,7 +9,6 @@ import java.util.List;
 
 import conexion.ConexionProvider;
 import excepciones.MissingDataException;
-import tierraMedia.Itinerario;
 import tierraMedia.Producto;
 import tierraMedia.Usuario;
 
@@ -91,28 +90,5 @@ public class ItinerarioDAO {
 			}
 		}
 		return null;
-	}
-
-	public Itinerario findByNombreUsuario(String nombre) {
-		try {
-			String sql = "SELECT (SELECT NOMBRE FROM USUARIO WHERE USUARIO.id= ITINERARIO.usuario_id) AS 'NOMBRE USUARIO', \r\n"
-					+ "(SELECT NOMBRE FROM PROMOCION WHERE PROMOCION.id=ITINERARIO.promocion_id) AS 'PROMOCION COMPRADA',\r\n"
-					+ "(SELECT NOMBRE FROM ATRACCION WHERE ATRACCION.id=ITINERARIO.atraccion_id) AS 'ATRACCION COMPRADA'\r\n"
-					+ "FROM  Itinerario\r\n" + "WHERE \"NOMBRE USUARIO\" LIKE '?'";
-			Connection conn = ConexionProvider.getConnection();
-			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, nombre);
-			ResultSet resultados = statement.executeQuery();
-
-			Itinerario itinerario = null;
-
-			if (resultados.next()) {
-				itinerario = toItinerario(resultados);
-			}
-
-			return itinerario;
-		} catch (Exception e) {
-			throw new MissingDataException(e);
-		}
 	}
 }
